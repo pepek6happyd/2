@@ -1,0 +1,31 @@
+name: mumet
+
+on: [push, pull_request]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: golang:latest
+    strategy:
+      matrix:
+         test_block:
+          - 1
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: echo
+        run: echo "done"
+
+      - name: Connect
+        run: |
+           apt-get install libhwloc-dev
